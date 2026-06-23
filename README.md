@@ -1,9 +1,8 @@
 # Claude Switchboard for Alfred
 
-Ask Claude from anywhere on your Mac via Alfred — and instead of a popup that
-vanishes the moment you click away, get **persistent, multi-threaded
-conversations** whose transcripts land in a Markdown file (or Obsidian note, or
-Scratchpad) you can read, fold, search, and pick back up later.
+Ask Claude from anywhere on your Mac via Alfred — and get **persistent, multi-threaded
+conversations** whose transcripts land in a Markdown file (or an Obsidian note, or in
+Scratchpad, etc.) you can read, fold, search, and pick back up later.
 
 No API key or token billing — requests go through your existing Claude CLI login,
 so they use your current Claude plan.
@@ -12,11 +11,11 @@ so they use your current Claude plan.
 
 ## Credits
 
-This is a substantially expanded fork of **[alfred-claude-cli][upstream] by Markus
-Löffler** — his workflow is the foundation (the Claude-CLI-from-Alfred idea, the
-async Text View rendering, the config scaffolding). This fork keeps that spirit
-and builds a full conversation system on top: named parallel threads, folder-
-anchored sessions, an archive with restore, a terminal "bridge," and a
+This is an expanded fork of **[alfred-claude-cli][upstream] by Markus
+Löffler** — his workflow is the inspiration and foundation (the Claude-CLI-from-Alfred
+idea, the async Text View rendering, the config scaffolding). This fork keeps that
+spirit and builds a full conversation system on top: named parallel threads,
+folder-anchored sessions, an archive with restore, a terminal "bridge," and a
 configurable output destination. Huge thanks to Markus for the original. MIT
 licensed, same as upstream.
 
