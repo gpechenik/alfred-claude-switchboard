@@ -7,19 +7,27 @@ Internal notes for building, testing, and releasing this workflow.
 ```
 .
 ├── workflow/
-│   ├── info.plist          # Alfred workflow definition
-│                           #   (keyword, action, Text View, config)
-│   ├── readme.md           # Workflow "About" text — injected into info.plist by build.sh
-│   └── scripts/
-│       ├── passthrough.sh  # Run Script action — instant pass-through, emits Q + N
-│       ├── view.sh         # Text View Script Source — config, render, launch_job, run_view
-│       └── common.sh       # Code shared by both scripts (json_escape)
-├── build.sh                # Packages workflow/ → dist/*.alfredworkflow
-├── CHANGELOG.md            # Release notes (Keep a Changelog) — sliced into the GitHub Release
-└── .github/
-    └── workflows/
-        └── release.yml     # Builds + publishes the .alfredworkflow on tag push
+│   ├── info.plist            # Alfred workflow definition (keywords, actions, config)
+│   ├── readme.md             # Workflow "About" text — injected into info.plist by build.sh
+│   ├── icon.png              # Workflow icon
+│   └── scripts/              # All referenced relatively as ./scripts/<name>.sh
+│       ├── sessions.lib.sh   # Shared library: cache paths, sink resolution, threads,
+│       │                     #   archiving, Markdown formatting (sourced by the others)
+│       ├── ask.sh            # `cl` — ask; runs Claude detached, appends to the output surface
+│       ├── sessions.sh       # `cls` — switchboard Script Filter (emits items JSON)
+│       ├── archived.sh       # `cla` — archive browser Script Filter
+│       ├── session-action.sh # Dispatcher for cls/cla actions (use/new/archive/open/…)
+│       ├── clear-thread.sh   # `clr` — archive the active thread, start fresh
+│       ├── open-folder.sh    # `clf` — open/resume a folder-anchored session
+│       └── open-session-file.sh # `clo` — open a thread's file
+├── build.sh                  # Packages workflow/ → dist/*.alfredworkflow
+├── CHANGELOG.md              # Release notes (Keep a Changelog) — sliced into the GitHub Release
+└── .github/workflows/release.yml  # Builds + publishes the .alfredworkflow on tag push
 ```
+
+Scripts source siblings via `$(dirname "$0")`, and the plist invokes them as
+`./scripts/<name>.sh` — Alfred runs Run Scripts with the bundle as the working
+directory, so the bundle is self-contained and relocatable.
 
 ## Build and install
 
@@ -29,13 +37,13 @@ From the repo root:
 ./build.sh
 ```
 
-Produces `dist/alfred-claude-cli-v<version>.alfredworkflow` (a ZIP). The version comes
-from `<key>version</key>` in `workflow/info.plist`. The build injects the Markdown
-in `workflow/readme.md` into the plist's `readme` key (the workflow "About" text),
-so edit that file rather than the plist string. Install it with:
+Produces `dist/alfred-claude-switchboard-v<version>.alfredworkflow` (a ZIP). The
+version comes from `<key>version</key>` in `workflow/info.plist`. The build injects
+the Markdown in `workflow/readme.md` into the plist's `readme` key (the workflow
+"About" text), so edit that file rather than the plist string. Install with:
 
 ```bash
-open dist/alfred-claude-cli-v*.alfredworkflow
+open dist/alfred-claude-switchboard-v*.alfredworkflow
 ```
 
 ## Make a release
@@ -45,19 +53,15 @@ Releases are built and published by `.github/workflows/release.yml` on any
 `CHANGELOG.md` section → uploads `dist/*.alfredworkflow` to a GitHub Release).
 
 1. Move the items under `## [Unreleased]` in `CHANGELOG.md` into a new
-   `## [0.2.0] - YYYY-MM-DD` section (keep an empty `## [Unreleased]` on top).
-2. Bump `<key>version</key>` in `workflow/info.plist` (e.g. `0.1.0` → `0.2.0`).
+   `## [2.1.0] - YYYY-MM-DD` section (keep an empty `## [Unreleased]` on top).
+2. Bump `<key>version</key>` in `workflow/info.plist`.
 3. Commit the bump and the changelog.
 4. Tag and push — the tag version should match the plist:
 
    ```bash
-   git tag v0.2.0
-   git push origin v0.2.0
+   git tag v2.1.0
+   git push origin v2.1.0
    ```
-
-5. The workflow runs and attaches `alfred-claude-cli-v0.2.0.alfredworkflow` to the
-   release. You can also trigger it manually via **Actions → Release →
-   Run workflow** (`workflow_dispatch`).
 
 > Keep three things in sync: the tag, the plist `version`, and the `CHANGELOG.md`
 > heading. The release job derives the version from the plist and pulls notes from
@@ -66,26 +70,48 @@ Releases are built and published by `.github/workflows/release.yml` on any
 
 ## How it runs
 
-What happens, in order, when you type `ca <prompt>` and press Enter:
+The workflow is a set of `cl*` keywords over a shared library and a small set of
+files in Alfred's workflow cache. There is no long-running process; state is on disk.
 
-1. The **keyword input** fires the **Run Script** action (`passthrough.sh`).
-2. `passthrough.sh` returns immediately — it just sets two Alfred variables:
-   `Q` (the prompt) and `N` (a per-Enter nonce). It never waits on Claude, so the
-   launcher doesn't block.
-3. Alfred opens the **Text View**, whose Script Source (`view.sh`) runs and reads
-   `Q` and `N`.
-4. On the first render, `view.sh` starts Claude **detached** in the background
-   (`claude -p <prompt> --model <model>`), writing its output to a cache file
-   keyed by `N`.
-5. While the job runs, `view.sh` shows a spinner and asks Alfred to re-poll via
-   the JSON `"rerun"` key — so step 4's `view.sh` re-runs every interval.
-6. Once the cache file exists, `view.sh` renders the answer (prompt on top) as
-   Markdown and drops `"rerun"`, so polling stops.
+**Asking (`cl <question>`):**
 
-The nonce `N` keys the cache per Enter, so each run is fresh and independent.
+1. The keyword fires `ask.sh`, which resolves the **active thread** (the `active`
+   file) and decides where output goes: a folder log (folder session), or the
+   plain-thread sink (`OUTPUT` → a file, or Scratchpad).
+2. It records the question immediately (instant feedback), then forks a **detached**
+   job (`( … ) & disown`) so Alfred returns at once.
+3. The job runs `claude -p <prompt> --model <model> [--resume <id>] --output-format
+   json`, parses out `.result` and `.session_id`, stores the id for the thread, and
+   appends the answer to the output surface.
+4. Continuity is the CLI's own `--resume`: the returned `session_id` is stable, so
+   it's stored once per thread and reused.
 
-On success the job also writes the **clean answer** (no prompt header) to a
-sibling `<N>.answer` cache file. The final render exposes it as the `ANSWER`
-variable and shows a footer hint; the Text View is connected to a **Copy to
-Clipboard** output (`{var:ANSWER}`), so pressing ⏎ copies the answer. Error and
-timeout renders write no answer file, so no copy action is offered.
+**Switchboard (`cls`) / archive (`cla`):** these are Alfred **Script Filters** that
+emit items JSON. Each item's `arg` encodes an action (`use:<name>`, `archive:<name>`,
+`open:<name>`, `openfile:<name>`, `restore:<key>`, `openarc:<key>`); modifier keys
+swap in a different `arg`. All of them route to the single dispatcher
+`session-action.sh`, which performs the action. (Leave **"Alfred filters results"**
+unchecked on these nodes — the scripts do their own filtering/sorting.)
+
+## Data model (Alfred workflow cache)
+
+```
+active                          # name of the active thread (default "current")
+session.<name>                  # thread's Claude session id; file mtime = last activity
+session.<name>.title            # first-prompt snippet (shown in cls)
+session.<name>.folder           # folder a thread is anchored to (folder sessions)
+archive/session.<name>.<token>* # archived threads; <token> is unique → never clobbered
+ask.log                         # stderr from the claude calls (debugging)
+```
+
+Thread names are sanitized to contain no dot, so any dotted name under `session.`
+is a sidecar. A folder session's durable record is its in-folder `claude-session.md`
+(with resume info in the header) — the cache just points at it.
+
+## Conventions
+
+- **macOS stock bash 3.2.** Brace variables next to multibyte punctuation (`${x}`),
+  and test with `/bin/bash`, not Homebrew bash 5.
+- **`jq` is required** (items JSON, parsing the CLI's JSON output, URL-encoding).
+- Markdown answers are re-leveled (`nest_headings`) so each answer folds as a unit
+  under its `## 🤖 Claude` heading, skipping fenced code blocks.

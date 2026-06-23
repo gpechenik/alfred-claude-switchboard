@@ -1,20 +1,26 @@
-# Claude CLI for Alfred
+# Claude Switchboard
 
-Send a prompt to the Claude CLI and render the answer as Markdown — right inside Alfred. No API key needed; requests use your existing Claude CLI login and plan.
+Persistent, multi-threaded Claude conversations from Alfred — logged to Markdown
+files you keep. Uses your existing Claude CLI login (no API key / token billing).
 
-## Usage
+A substantially expanded fork of [alfred-claude-cli](https://github.com/markusloffler/alfred-claude-cli)
+by Markus Löffler.
 
-Type `cla` followed by your prompt, then press Enter:
+## Keywords
 
-```
-cla explain recursion in one line
-```
+- `cl <question>` — ask (continues the active thread)
+- `cls [filter]` — switchboard: switch (↩) · archive (⌘↩) · open in terminal (⌥↩) · open file (⌃↩)
+- `clf <folder>` — folder session: anchor a conversation to a folder, logged in it
+- `clr [name]` — archive the active thread and start fresh
+- `cla [filter]` — browse the archive; restore (↩) · peek (⌥↩)
+- `clo [name]` — open the active (or named) thread's file
 
-The prompt is shown on top, followed by Claude's answer.
+## Setup
 
-## Configuration
+Open **Configure Workflow** and set the **Claude CLI Path** (`which claude`).
+Optionally set the model, working directory, output destination (a Markdown file,
+an Obsidian note, or `scratchpad`), and which app opens session files.
 
-Open the workflow configuration and set:
+Requires the Claude CLI, `jq` (`brew install jq`), and Alfred 5 with the Powerpack.
 
-- **Claude CLI Path** — path to your `claude` binary (find yours with `which claude`)
-- **Model** — the model to use (default `sonnet`)
+Full docs: <https://github.com/gpechenik/alfred-claude-switchboard>

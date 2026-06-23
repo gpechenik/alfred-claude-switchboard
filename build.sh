@@ -22,9 +22,9 @@ else
         | grep '<string>' | sed 's/.*<string>\(.*\)<\/string>.*/\1/' || echo "0.0.0")
 fi
 
-OUTPUT_FILE="${DIST_DIR}/alfred-claude-cli-v${VERSION}.alfredworkflow"
+OUTPUT_FILE="${DIST_DIR}/alfred-claude-switchboard-v${VERSION}.alfredworkflow"
 
-echo "📦 Building Claude CLI workflow v${VERSION}"
+echo "📦 Building Claude Switchboard v${VERSION}"
 
 rm -rf "$BUILD_DIR"
 mkdir -p "$BUILD_DIR" "$DIST_DIR"
@@ -63,9 +63,14 @@ echo "📝 Injected readme from $README_SRC"
 # Validate the workflow structure.
 REQUIRED_FILES=(
     "$BUILD_DIR/info.plist"
-    "$BUILD_DIR/scripts/passthrough.sh"
-    "$BUILD_DIR/scripts/view.sh"
-    "$BUILD_DIR/scripts/common.sh"
+    "$BUILD_DIR/scripts/sessions.lib.sh"
+    "$BUILD_DIR/scripts/ask.sh"
+    "$BUILD_DIR/scripts/sessions.sh"
+    "$BUILD_DIR/scripts/session-action.sh"
+    "$BUILD_DIR/scripts/archived.sh"
+    "$BUILD_DIR/scripts/clear-thread.sh"
+    "$BUILD_DIR/scripts/open-folder.sh"
+    "$BUILD_DIR/scripts/open-session-file.sh"
 )
 for file in "${REQUIRED_FILES[@]}"; do
     if [[ ! -f "$file" ]]; then

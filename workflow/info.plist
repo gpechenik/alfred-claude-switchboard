@@ -3,53 +3,138 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>info.markusloeffler.alfred-claude-cli</string>
+	<string>com.gpechenik.alfred-claude-switchboard</string>
 	<key>category</key>
-	<string>Productivity</string>
+	<string>Tools</string>
 	<key>connections</key>
 	<dict>
-		<key>ca-action</key>
+		<key>1C0F1737-4759-4B61-8B12-0584C74C116F</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>result-view</string>
+				<string>AF313F94-4EDD-4B04-B29F-ADA831F62E11</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
-		<key>ca-input</key>
+		<key>3F1A6E3B-358E-4EB4-B7B6-14CF65BE0B77</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>ca-action</string>
+				<string>DA61DBB1-2AA4-4159-8037-D1C2DFA47327</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
-		<key>result-view</key>
+		<key>784A045A-3D25-4A86-BC6B-C22A0D9FDF97</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>copy-answer</string>
+				<string>4142B8ED-6DD6-4F40-965F-5FF2BC8DEF29</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>4142B8ED-6DD6-4F40-965F-5FF2BC8DEF29</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>4142B8ED-6DD6-4F40-965F-5FF2BC8DEF29</string>
+				<key>modifiers</key>
+				<integer>524288</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>4142B8ED-6DD6-4F40-965F-5FF2BC8DEF29</string>
+				<key>modifiers</key>
+				<integer>262144</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>C0C8AA99-5F63-49CA-881F-A09C44B76208</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>8153D4F5-23D2-40E8-B239-A71C9734FA4B</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>D11B796F-AD55-4D4F-A75E-A7533850DDD8</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>4142B8ED-6DD6-4F40-965F-5FF2BC8DEF29</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>4142B8ED-6DD6-4F40-965F-5FF2BC8DEF29</string>
+				<key>modifiers</key>
+				<integer>524288</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>D5B945C1-7CBE-4805-A69F-CB1A23E51453</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>85B674CB-554E-4CDA-87FF-D243A0E58537</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 	</dict>
 	<key>createdby</key>
-	<string>Markus Löffler</string>
+	<string>Graham Pechenik</string>
 	<key>description</key>
-	<string>Send a prompt to the Claude CLI and render the answer as Markdown</string>
+	<string>An Alfred workflow that turns the Claude CLI into a switchboard of persistent conversations — each anchorable to its own folder and logged to Markdown.</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>Claude CLI</string>
+	<string>Claude Switchboard</string>
 	<key>objects</key>
 	<array>
 		<dict>
@@ -58,9 +143,9 @@
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>keyword</key>
-				<string>cla</string>
+				<string>cl</string>
 				<key>subtext</key>
-				<string>Send a prompt to Claude</string>
+				<string>Continue the Conversation</string>
 				<key>text</key>
 				<string>Ask Claude</string>
 				<key>withspace</key>
@@ -69,7 +154,7 @@
 			<key>type</key>
 			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
-			<string>ca-input</string>
+			<string>1C0F1737-4759-4B61-8B12-0584C74C116F</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -81,7 +166,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>./scripts/passthrough.sh "$1"</string>
+				<string>./scripts/ask.sh "$1"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -92,94 +177,352 @@
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>ca-action</string>
+			<string>AF313F94-4EDD-4B04-B29F-ADA831F62E11</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>behaviour</key>
-				<integer>2</integer>
-				<key>fontmode</key>
-				<integer>0</integer>
-				<key>fontsizing</key>
-				<integer>0</integer>
-				<key>footertext</key>
-				<string></string>
-				<key>inputfile</key>
-				<string>./scripts/view.sh</string>
-				<key>inputtype</key>
-				<integer>1</integer>
-				<key>loadingtext</key>
-				<string>⏳ Asking Claude…</string>
-				<key>outputmode</key>
-				<integer>0</integer>
-				<key>scriptinput</key>
-				<integer>0</integer>
-				<key>spellchecking</key>
-				<integer>0</integer>
-				<key>stackview</key>
+				<key>concurrently</key>
 				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>./scripts/clear-thread.sh "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>5</integer>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.userinterface.text</string>
+			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>result-view</string>
+			<string>DA61DBB1-2AA4-4159-8037-D1C2DFA47327</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>clr</string>
+				<key>subtext</key>
+				<string>Archive the active thread, start fresh (optional name)</string>
+				<key>text</key>
+				<string>Clear/retire conversation</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>3F1A6E3B-358E-4EB4-B7B6-14CF65BE0B77</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>autopaste</key>
+				<key>alfredfiltersresults</key>
 				<false/>
-				<key>clipboardtext</key>
-				<string>{var:ANSWER}</string>
-				<key>ignoredynamicplaceholders</key>
-				<false/>
-				<key>transient</key>
-				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>cls</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>runningsubtext</key>
+				<string>Loading conversations…</string>
+				<key>script</key>
+				<string>./scripts/sessions.sh "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>↩ switch · ⌘↩ archive · ⌥↩ open in terminal</string>
+				<key>title</key>
+				<string>Claude conversations</string>
+				<key>type</key>
+				<integer>5</integer>
+				<key>withspace</key>
+				<true/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.output.clipboard</string>
+			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>copy-answer</string>
+			<string>784A045A-3D25-4A86-BC6B-C22A0D9FDF97</string>
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>./scripts/session-action.sh "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>4142B8ED-6DD6-4F40-965F-5FF2BC8DEF29</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>clf</string>
+				<key>subtext</key>
+				<string>Open/resume a Claude session anchored to a folder</string>
+				<key>text</key>
+				<string>Folder session</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>D5B945C1-7CBE-4805-A69F-CB1A23E51453</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>./scripts/open-folder.sh "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>85B674CB-554E-4CDA-87FF-D243A0E58537</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>cla</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>runningsubtext</key>
+				<string>Loading archive…</string>
+				<key>script</key>
+				<string>./scripts/archived.sh "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>↩ restore · ⌥↩ peek log</string>
+				<key>title</key>
+				<string>Archived conversations</string>
+				<key>type</key>
+				<integer>5</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>D11B796F-AD55-4D4F-A75E-A7533850DDD8</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>keyword</key>
+				<string>clo</string>
+				<key>subtext</key>
+				<string>Jump to the active (or named) thread's file</string>
+				<key>text</key>
+				<string>Open session file</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>C0C8AA99-5F63-49CA-881F-A09C44B76208</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>./scripts/open-session-file.sh "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>8153D4F5-23D2-40E8-B239-A71C9734FA4B</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
 	</array>
-	<key>readme</key>
-	<string></string>
 	<key>uidata</key>
 	<dict>
-		<key>ca-action</key>
+		<key>1C0F1737-4759-4B61-8B12-0584C74C116F</key>
 		<dict>
+			<key>colorindex</key>
+			<integer>7</integer>
 			<key>xpos</key>
-			<integer>320</integer>
+			<real>90.0</real>
 			<key>ypos</key>
-			<integer>100</integer>
+			<real>305.0</real>
 		</dict>
-		<key>ca-input</key>
+		<key>3F1A6E3B-358E-4EB4-B7B6-14CF65BE0B77</key>
 		<dict>
+			<key>colorindex</key>
+			<integer>5</integer>
 			<key>xpos</key>
-			<integer>100</integer>
+			<real>90.0</real>
 			<key>ypos</key>
-			<integer>100</integer>
+			<real>510.0</real>
 		</dict>
-		<key>copy-answer</key>
+		<key>4142B8ED-6DD6-4F40-965F-5FF2BC8DEF29</key>
 		<dict>
+			<key>colorindex</key>
+			<integer>6</integer>
 			<key>xpos</key>
-			<integer>760</integer>
+			<integer>310</integer>
 			<key>ypos</key>
-			<integer>100</integer>
+			<integer>700</integer>
 		</dict>
-		<key>result-view</key>
+		<key>784A045A-3D25-4A86-BC6B-C22A0D9FDF97</key>
 		<dict>
+			<key>colorindex</key>
+			<integer>6</integer>
 			<key>xpos</key>
-			<integer>540</integer>
+			<integer>90</integer>
 			<key>ypos</key>
-			<integer>100</integer>
+			<integer>700</integer>
+		</dict>
+		<key>8153D4F5-23D2-40E8-B239-A71C9734FA4B</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>4</integer>
+			<key>xpos</key>
+			<integer>530</integer>
+			<key>ypos</key>
+			<integer>1100</integer>
+		</dict>
+		<key>85B674CB-554E-4CDA-87FF-D243A0E58537</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>3</integer>
+			<key>xpos</key>
+			<integer>310</integer>
+			<key>ypos</key>
+			<integer>900</integer>
+		</dict>
+		<key>AF313F94-4EDD-4B04-B29F-ADA831F62E11</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>7</integer>
+			<key>xpos</key>
+			<real>310.0</real>
+			<key>ypos</key>
+			<real>305.0</real>
+		</dict>
+		<key>C0C8AA99-5F63-49CA-881F-A09C44B76208</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>4</integer>
+			<key>xpos</key>
+			<integer>310</integer>
+			<key>ypos</key>
+			<integer>1100</integer>
+		</dict>
+		<key>D11B796F-AD55-4D4F-A75E-A7533850DDD8</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>4</integer>
+			<key>xpos</key>
+			<integer>90</integer>
+			<key>ypos</key>
+			<integer>1100</integer>
+		</dict>
+		<key>D5B945C1-7CBE-4805-A69F-CB1A23E51453</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>3</integer>
+			<key>xpos</key>
+			<integer>90</integer>
+			<key>ypos</key>
+			<integer>900</integer>
+		</dict>
+		<key>DA61DBB1-2AA4-4159-8037-D1C2DFA47327</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>5</integer>
+			<key>xpos</key>
+			<real>310.0</real>
+			<key>ypos</key>
+			<real>510.0</real>
 		</dict>
 	</dict>
 	<key>userconfigurationconfig</key>
@@ -226,10 +569,94 @@
 			<key>variable</key>
 			<string>MODEL</string>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string>blank = a file in your working dir  ·  scratchpad  ·  ~/path/note.md</string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Where plain (non-folder) threads log their transcript. Blank = a 'claude-log.md' file in your Working directory (works for anyone, no deps). 'scratchpad' = Scratchpad.app. Or any file path to append to — any markdown/.txt file, e.g. an Obsidian note. Folder sessions (clf) ignore this and use their own in-folder log.</string>
+			<key>label</key>
+			<string>Default output (plain threads)</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>OUTPUT</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>🤔</string>
+				<key>placeholder</key>
+				<string>🤔</string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Emoji that marks your questions in the transcript (default 🤔).</string>
+			<key>label</key>
+			<string>Your emoji</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>YOU_EMOJI</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>~</string>
+				<key>placeholder</key>
+				<string>~  |  ~/projects/foo</string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Directory Claude runs in — its file-tool root, and where the default output file lives. A project dir gives Claude context; a bare dir keeps asks fast and light.</string>
+			<key>label</key>
+			<string>Working directory</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>WORKING_DIR</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string>blank = system default</string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>App to open a clf folder session's claude-session.md in (e.g. Zed, Visual Studio Code, Obsidian). Blank = system default handler.</string>
+			<key>label</key>
+			<string>Open session log in (app)</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>OPEN_WITH</string>
+		</dict>
 	</array>
 	<key>version</key>
-	<string>1.1.0</string>
+	<string>2.0.0</string>
 	<key>webaddress</key>
-	<string>https://github.com/markusloffler/alfred-claude-cli</string>
+	<string>https://github.com/gpechenik/alfred-claude-switchboard</string>
 </dict>
 </plist>
