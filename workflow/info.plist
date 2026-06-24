@@ -638,6 +638,27 @@
 				<key>default</key>
 				<string></string>
 				<key>placeholder</key>
+				<string>blank = local persistent  ·  ~/synced/folder</string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Folder where thread state (session ids, titles, archive) is kept. Blank = Alfred's persistent workflow data (local to this machine). Point at a synced folder (vault / Drive) to share the thread list across machines — note the conversation transcripts that resume reads live in ~/.claude and stay per-machine, so resuming a plain thread works only where it was created.</string>
+			<key>label</key>
+			<string>Thread store folder</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>STORE_DIR</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
 				<string>blank = system default</string>
 				<key>required</key>
 				<false/>

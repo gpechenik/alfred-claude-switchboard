@@ -2,19 +2,28 @@
 
 # Shared helpers for named Claude conversations ("threads").
 #
-# Data model, all under $CACHE:
+# Data model, all under $STORE:
 #   active                 - name of the currently active thread (default "current")
 #   session.<name>         - Claude session id for <name>; mtime = last activity
 #   session.<name>.title   - human title (first prompt snippet) for nicer lists
+#   session.<name>.folder  - folder a thread is anchored to (folder sessions)
 #   archive/               - archived session.<name>* files (off the main list)
 #
 # Sourced by every action script: ask.sh, sessions.sh, archived.sh,
 # session-action.sh, clear-thread.sh, open-folder.sh, open-session-file.sh.
 
-CACHE="${alfred_workflow_cache:-${TMPDIR:-/tmp}/alfred-claude-switchboard}"
-ARCHIVE="$CACHE/archive"
-ACTIVE_FILE="$CACHE/active"
-mkdir -p "$CACHE" "$ARCHIVE"
+# Where thread state lives. Durable by design: Alfred's persistent workflow DATA
+# dir, NOT the volatile cache (which the OS can purge). Override with the
+# STORE_DIR config var — point it at a synced folder to share threads across
+# machines. (Caveat: the conversation transcripts that `--resume` reads live in
+# ~/.claude, which is per-machine — so a synced store gives you the thread *list*
+# + folder-session logs everywhere, but resuming a plain thread works only on the
+# machine it was created.)
+STORE="${STORE_DIR:-${alfred_workflow_data:-${TMPDIR:-/tmp}/alfred-claude-switchboard}}"
+STORE="${STORE/#\~/$HOME}"
+ARCHIVE="$STORE/archive"
+ACTIVE_FILE="$STORE/active"
+mkdir -p "$STORE" "$ARCHIVE"
 
 # Default thread name when none has ever been chosen.
 DEFAULT_THREAD="current"
@@ -38,10 +47,10 @@ sanitize_name() {
 }
 
 # Paths for a thread. Args: $1 - name.
-session_file()  { printf '%s/session.%s' "$CACHE" "$1"; }
-title_file()    { printf '%s/session.%s.title' "$CACHE" "$1"; }
+session_file()  { printf '%s/session.%s' "$STORE" "$1"; }
+title_file()    { printf '%s/session.%s.title' "$STORE" "$1"; }
 # Sidecar holding the absolute folder a thread is anchored to (folder sessions).
-folder_file()   { printf '%s/session.%s.folder' "$CACHE" "$1"; }
+folder_file()   { printf '%s/session.%s.folder' "$STORE" "$1"; }
 # Echo a thread's anchored folder (empty if it isn't a folder session). $1 - name.
 thread_folder() { cat "$(folder_file "$1")" 2>/dev/null; }
 
@@ -108,7 +117,7 @@ rel_age() {
 # Prints one name per line.
 list_threads() {
   local f name
-  for f in "$CACHE"/session.*; do
+  for f in "$STORE"/session.*; do
     [[ -e "$f" ]] || continue
     name="${f##*/session.}"
     # Thread names are sanitized to contain no dot, so any dotted name is a

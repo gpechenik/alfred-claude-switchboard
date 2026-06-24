@@ -78,6 +78,7 @@ Open **Configure Workflow** in Alfred. All settings are optional except the CLI 
 | Claude CLI Path | `CLAUDE_CLI_PATH` | `~/.local/bin/claude` | Path to the `claude` binary (`which claude`). |
 | Model | `MODEL` | `sonnet` | Model passed to `claude --model` (`sonnet`, `opus`, `haiku`). |
 | Working directory | `WORKING_DIR` | `~` | The folder Claude runs in — its file-tool root, and where the default output file lives. A rich project dir gives Claude context; a bare dir keeps asks fast and light. |
+| Thread store folder | `STORE_DIR` | *(blank)* | Where thread state (session ids, titles, archive) is kept. Blank = Alfred's persistent workflow data (local). Point at a **synced folder** to share the thread list across machines — but note `~/.claude` transcripts stay per-machine, so resuming a plain thread works only where it was created. |
 | Default output | `OUTPUT` | *(blank)* | Where plain threads log their transcript — see **[Output](#output-where-your-conversations-go)**. |
 | Open session file in | `OPEN_WITH` | *(system default)* | Which app opens a session's file (e.g. `Zed`, `Visual Studio Code`, `Obsidian`). |
 | Your emoji | `YOU_EMOJI` | `🤔` | The emoji that marks *your* questions in the transcript. |

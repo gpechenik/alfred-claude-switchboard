@@ -38,9 +38,9 @@ YOU_EMOJI="${YOU_EMOJI:-🤔}"
 WORKING_DIR="${WORKING_DIR:-$HOME}"
 WORKING_DIR="${WORKING_DIR/#\~/$HOME}"
 
-# Shared thread helpers (CACHE, active_thread, session_file, title_file, …).
+# Shared thread helpers (STORE, active_thread, session_file, title_file, …).
 source "$(dirname "$0")/sessions.lib.sh"
-ERRLOG="$CACHE/ask.log"
+ERRLOG="$STORE/ask.log"
 
 PROMPT="$1"
 
