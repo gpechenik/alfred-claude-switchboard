@@ -26,18 +26,18 @@ licensed, same as upstream.
 ## What you get
 
 - **Persistent conversations** — every question continues the thread; follow-ups
-  just work (powered by the Claude CLI's own `--resume`).
+  work (powered by the Claude CLI's own `--resume`).
 - **Many threads at once** — keep `work`, `research`, `current`, … going in
   parallel and switch between them; a switchboard shows them most-recent-first.
 - **Output where you want it** — a Markdown file by default (pretty rendering,
-  foldable, greppable), or an Obsidian note, or Scratchpad.app. Your call.
+  foldable, greppable), or append to an Obsidian note or to Scratchpad.app.
 - **Folder sessions** — anchor a conversation to a folder; its transcript lives
-  *in* that folder and carries its own resume info, so the conversation travels
+  _in_ that folder and carries its own resume info, so the conversation travels
   with the documents it's about.
-- **Archive & restore** — retire a conversation without losing it; bring any
-  archived one back (no need to remember its name).
+- **Archive & restore** — retire a conversation from the switchboard without
+  losing it; bring any archived one back and resume the session later.
 - **Bridge to a real terminal** — jump from a quick Alfred ask into a full
-  interactive `claude` session, mid-conversation, in one keystroke.
+  interactive `claude` session, mid-conversation, with one keystroke.
 
 ---
 
@@ -53,14 +53,14 @@ licensed, same as upstream.
 
 - **Scratchpad.app** — only if you set output to `scratchpad`
 - **Ghostty** — the terminal the bridge opens (swap one line for a different terminal)
-- An editor of your choice for opening session files (e.g. VS Code, Zed, Obsidian)
+- An editor of your choice for opening session files (e.g., VS Code, Zed, Obsidian)
 
 ---
 
 ## Install
 
 1. Download the latest `.alfredworkflow` from **[Releases]** and double-click it
-   to import into Alfred. *(Or build from source: `./build.sh`.)*
+   to import into Alfred. _(Or build from source: `./build.sh`.)_
 2. Open the workflow in Alfred → **[∨] Configure Workflow** and set at least the
    **Claude CLI Path** (find yours with `which claude`).
 3. Type `cl hello` into Alfred. The answer appears in your chosen output surface.
@@ -73,15 +73,15 @@ licensed, same as upstream.
 
 Open **Configure Workflow** in Alfred. All settings are optional except the CLI path.
 
-| Setting | Variable | Default | What it does |
-|---|---|---|---|
-| Claude CLI Path | `CLAUDE_CLI_PATH` | `~/.local/bin/claude` | Path to the `claude` binary (`which claude`). |
-| Model | `MODEL` | `sonnet` | Model passed to `claude --model` (`sonnet`, `opus`, `haiku`). |
-| Working directory | `WORKING_DIR` | `~` | The folder Claude runs in — its file-tool root, and where the default output file lives. A rich project dir gives Claude context; a bare dir keeps asks fast and light. |
-| Thread store folder | `STORE_DIR` | *(blank)* | Where thread state (session ids, titles, archive) is kept. Blank = Alfred's persistent workflow data (local). Point at a **synced folder** to share the thread list across machines — but note `~/.claude` transcripts stay per-machine, so resuming a plain thread works only where it was created. |
-| Default output | `OUTPUT` | *(blank)* | Where plain threads log their transcript — see **[Output](#output-where-your-conversations-go)**. |
-| Open session file in | `OPEN_WITH` | *(system default)* | Which app opens a session's file (e.g. `Zed`, `Visual Studio Code`, `Obsidian`). |
-| Your emoji | `YOU_EMOJI` | `🤔` | The emoji that marks *your* questions in the transcript. |
+| Setting              | Variable          | Default               | What it does                                                                                                                                                                                                                                                                                         |
+| -------------------- | ----------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Claude CLI Path      | `CLAUDE_CLI_PATH` | `~/.local/bin/claude` | Path to the `claude` binary (`which claude`).                                                                                                                                                                                                                                                        |
+| Model                | `MODEL`           | `sonnet`              | Model passed to `claude --model` (`sonnet`, `opus`, `haiku`).                                                                                                                                                                                                                                        |
+| Working directory    | `WORKING_DIR`     | `~`                   | The folder Claude runs in — its file-tool root, and where the default output file lives. A rich project dir gives Claude context; a bare dir keeps asks fast and light.                                                                                                                              |
+| Thread store folder  | `STORE_DIR`       | _(blank)_             | Where thread state (session ids, titles, archive) is kept. Blank = Alfred's persistent workflow data (local). Point at a **synced folder** to share the thread list across machines — but note `~/.claude` transcripts stay per-machine, so resuming a plain thread works only where it was created. |
+| Default output       | `OUTPUT`          | _(blank)_             | Where plain threads log their transcript — see **[Output](#output-where-your-conversations-go)**.                                                                                                                                                                                                    |
+| Open session file in | `OPEN_WITH`       | _(system default)_    | Which app opens a session's file (e.g., `Zed`, `Visual Studio Code`, `Obsidian`).                                                                                                                                                                                                                    |
+| Your emoji           | `YOU_EMOJI`       | `🤔`                  | The emoji that marks _your_ questions in the transcript.                                                                                                                                                                                                                                             |
 
 ---
 
@@ -99,14 +99,14 @@ clo                                              # jump to the current thread's 
 
 ## Keywords
 
-| Keyword | What it does |
-|---|---|
-| `cl <question>` | **Ask.** Continues the active thread; the answer lands in your output surface. |
-| `cls [filter]` | **Switchboard.** Browse/switch/manage threads (see modifier keys below). |
-| `clf <folder>` | **Folder session.** Anchor a conversation to a folder (see [Folder sessions](#folder-sessions)). |
-| `clr [name]` | **Clear/retire.** Archive the active thread and start fresh in `[name]` (default `current`). |
-| `cla [filter]` | **Archive.** Browse archived conversations and restore them. |
-| `clo [name]` | **Open file.** Jump straight to the active (or named) thread's file. |
+| Keyword         | What it does                                                                                     |
+| --------------- | ------------------------------------------------------------------------------------------------ |
+| `cl <question>` | **Ask.** Continues the active thread; the answer lands in your output surface.                   |
+| `cls [filter]`  | **Switchboard.** Browse/switch/manage threads (see modifier keys below).                         |
+| `clf <folder>`  | **Folder session.** Anchor a conversation to a folder (see [Folder sessions](#folder-sessions)). |
+| `clr [name]`    | **Clear/retire.** Archive the active thread and start fresh in `[name]` (default `current`).     |
+| `cla [filter]`  | **Archive.** Browse archived conversations and restore them.                                     |
+| `clo [name]`    | **Open file.** Jump straight to the active (or named) thread's file.                             |
 
 ### `cls` modifier keys
 
@@ -139,7 +139,7 @@ thread is called `current`.
 
 Plain (non-folder) threads send their transcript wherever `OUTPUT` points:
 
-- **blank (default)** → a `claude-log.md` file in your **Working directory** —
+- **blank (default)** → a `claude-session.md` file in your **Working directory** —
   works for everyone, no extra apps. Markdown renders nicely and folds in any editor.
 - **`scratchpad`** → [Scratchpad.app](https://sindresorhus.com/scratchpad) (quick,
   append-friendly, but its own app).
@@ -189,8 +189,8 @@ The conversation transcript that `claude --resume` reads lives in
 
 - **Same machine:** resume by id works — true continuity.
 - **Another machine:** the id won't resolve there, but a **folder session's log
-  travels** (if the folder is synced), and a fresh session can *read* it to catch
-  up. Treat the log as the portable memory; don't try to sync `~/.claude`.
+  travels** (if the folder is synced), and a fresh session can _read_ it to catch
+  up. The log is the portable memory.
 
 ---
 
@@ -205,23 +205,23 @@ The conversation transcript that `claude --resume` reads lives in
   - `session.<name>.title` / `.folder` — sidecars (first-prompt snippet; anchored folder)
   - `archive/session.<name>.<token>*` — archived threads (unique token = never clobbered)
 - The `cls`/`cla` keywords are Alfred **Script Filters** that emit items JSON; the
-  chosen item's `arg` (e.g. `use:…`, `archive:…`, `restore:…`) is handled by a
+  chosen item's `arg` (e.g., `use:…`, `archive:…`, `restore:…`) is handled by a
   single dispatcher script.
 - Output formatting re-levels an answer's Markdown headings beneath the
   `## 🤖 Claude` wrapper so each answer folds as a unit (code fences skipped).
 
 ### Files
 
-| File | Role |
-|---|---|
-| `ask.sh` | The `cl` ask action. |
-| `sessions.sh` | The `cls` switchboard (Script Filter). |
-| `archived.sh` | The `cla` archive browser (Script Filter). |
-| `session-action.sh` | Dispatcher for switchboard/archive actions. |
-| `clear-thread.sh` | The `clr` retire action. |
-| `open-folder.sh` | The `clf` folder-session opener. |
-| `open-session-file.sh` | The `clo` open-file action. |
-| `sessions.lib.sh` | Shared helpers (cache paths, sink resolution, archiving, formatting). |
+| File                   | Role                                                                  |
+| ---------------------- | --------------------------------------------------------------------- |
+| `ask.sh`               | The `cl` ask action.                                                  |
+| `sessions.sh`          | The `cls` switchboard (Script Filter).                                |
+| `archived.sh`          | The `cla` archive browser (Script Filter).                            |
+| `session-action.sh`    | Dispatcher for switchboard/archive actions.                           |
+| `clear-thread.sh`      | The `clr` retire action.                                              |
+| `open-folder.sh`       | The `clf` folder-session opener.                                      |
+| `open-session-file.sh` | The `clo` open-file action.                                           |
+| `sessions.lib.sh`      | Shared helpers (cache paths, sink resolution, archiving, formatting). |
 
 ---
 
@@ -230,7 +230,7 @@ The conversation transcript that `claude --resume` reads lives in
 - **Answers don't appear?** Check the CLI path in config, and the `ask.log` file in
   the workflow cache (it captures `claude`'s stderr).
 - **Switchboard order looks wrong?** The `cls`/`cla` Script Filters do their own
-  sorting — leave Alfred's **"Alfred filters results"** *unchecked* on those nodes.
+  sorting — leave Alfred's **"Alfred filters results"** _unchecked_ on those nodes.
 - **`jq: command not found`** — `brew install jq`.
 - **A script edit didn't take?** Alfred re-reads the workflow on open; no restart
   needed for script changes. (Editing the workflow's config layout can need a reload.)
